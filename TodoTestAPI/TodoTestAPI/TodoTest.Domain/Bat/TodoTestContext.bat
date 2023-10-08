@@ -1,0 +1,2 @@
+Scaffold-DbContext "Data Source=JULIANGC\SQL_SERVER;Initial Catalog=TodoTest;Integrated Security=True;TrustServerCertificate=true" -OutputDir D:\Proyectos\React\todo-app\TodoTestAPI\TodoTestAPI\TodoTest.Domain\Entities -ContextDir D:\Proyectos\React\todo-app\TodoTestAPI\TodoTestAPI\TodoTest.DataInfrastructure\Context -Provider Microsoft.EntityFrameworkCore.SqlServer -UseDatabaseNames -NoPluralize -Tables TODO -f -Context TodoDbContext
+pause

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TodoTest.Application\TodoTest.Application.csproj" />
+    <ProjectReference Include="..\TodoTest.DataInfrastructure\TodoTest.DataInfrastructure.csproj" />
+    <ProjectReference Include="..\TodoTest.Domain\TodoTest.Domain.csproj" />
+    <ProjectReference Include="..\TodoTest.Models\TodoTest.Models.csproj" />
+    <ProjectReference Include="..\TodoTest.Utilities\TodoTest.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

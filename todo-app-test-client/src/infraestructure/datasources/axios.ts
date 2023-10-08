@@ -1,9 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import promise from 'promise'
 import { RequestResultModel } from '../../domain/models/RequestResultModel'
+import { API_URL } from '../../utils/const'
+
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_CORE_API_HOST //API_URL,
+  baseURL: API_URL //API_URL,
 })
 
 export type RequestProps = {

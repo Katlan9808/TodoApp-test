@@ -3,13 +3,13 @@ import { AsyncApiResponse } from "../../domain/models/RequestResultModel"
 import { TodoModel } from "../../domain/models/TodoModel"
 import { sendRequest } from "../datasources/axios"
 
-
+const urlAPI = 'http://localhost:5052/';
 
 export default class TodoRepository implements ITodoRepository {
     async get(): Promise<AsyncApiResponse<TodoModel[]>> {
         const request = {
             get: {
-                path: `${process.env.REACT_APP_API_URL_OPERATIONS}skill-type`,
+                path: `${urlAPI}api/Todo/Get`,
             },
         }
         return await sendRequest<TodoModel[]>(request)
@@ -18,7 +18,7 @@ export default class TodoRepository implements ITodoRepository {
     async getById(id: string): Promise<AsyncApiResponse<TodoModel>> {
         const request = {
             get: {
-                path: `${process.env.REACT_APP_API_URL_OPERATIONS}skill-type/${id}`,
+                path: `${urlAPI}api/Todo/Get/${id}`,
             },
         }
         return await sendRequest<TodoModel>(request)
@@ -27,7 +27,7 @@ export default class TodoRepository implements ITodoRepository {
     async delete(id: string): Promise<AsyncApiResponse<TodoModel>> {
         const request = {
             delete: {
-                path: `${process.env.REACT_APP_API_URL_OPERATIONS_BASE}scientific-productions/${id}`,
+                path: `${urlAPI}api/Todo/${id}`,
             },
         }
         return await sendRequest<TodoModel>(request)
@@ -35,7 +35,7 @@ export default class TodoRepository implements ITodoRepository {
     async create(data: TodoModel): Promise<AsyncApiResponse<TodoModel>> {
         const request = {
             post: {
-                path: `${process.env.REACT_APP_API_URL_OPERATIONS_BASE}scientific-productions`,
+                path: `${urlAPI}api/Todo/Create`,
                 body: data,
             },
         }
@@ -43,8 +43,8 @@ export default class TodoRepository implements ITodoRepository {
     }
     async update(data: TodoModel): Promise<AsyncApiResponse<TodoModel>> {
         const request = {
-            put: {
-                path: `${process.env.REACT_APP_API_URL_OPERATIONS_BASE}scientific-productions/${data.id}`,
+            post: {
+                path: `${urlAPI}api/Todo/Update`,
                 body: data,
             },
         }

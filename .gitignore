@@ -27,3 +27,15 @@
 /./.vs
 /./.vscode
 /todo-app-test-client/.vscode
+/TodoTestAPI/TodoTestAPI/TodoTestAPI/obj
+/TodoTestAPI/TodoTestAPI/TodoTest.Application/obj
+/TodoTestAPI/TodoTestAPI/TodoTest.DataInfrastructure/obj
+/TodoTestAPI/TodoTestAPI/TodoTest.Domain/obj
+/TodoTestAPI/TodoTestAPI/TodoTest.Models/obj
+/TodoTestAPI/TodoTestAPI/TodoTest.Utilities/obj
+/TodoTestAPI/TodoTestAPI/TodoTest.Application/bin/Debug/net6.0
+/TodoTestAPI/TodoTestAPI/TodoTest.Domain/bin/Debug/net6.0
+/TodoTestAPI/TodoTestAPI/TodoTest.DataInfrastructure/bin/Debug/net6.0
+/TodoTestAPI/TodoTestAPI/TodoTest.Models/bin/Debug/net6.0
+/TodoTestAPI/TodoTestAPI/TodoTest.Utilities/bin/Debug/net6.0
+/TodoTestAPI/TodoTestAPI/TodoTestAPI/bin/Debug/net6.0

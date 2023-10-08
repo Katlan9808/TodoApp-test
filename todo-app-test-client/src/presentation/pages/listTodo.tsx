@@ -8,6 +8,7 @@ import { TodoModel } from '../../domain/models/TodoModel';
 import { data, options } from '../../utils/const';
 import { TodoController } from '../../infraestructure/controllers/TodoController';
 import { SweetAlertError, SweetAlertSuccess } from '../components/alerts';
+import { RequestResultModel } from '../../domain/models/RequestResultModel';
 const { Option } = Select;
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
@@ -35,40 +36,59 @@ type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 export default function ListTodo() {
     const [dataSource, setDataSource] = useState<TodoModel[] | undefined>([]);
     const [isAdding, setIsAdding] = useState<boolean>(false);
-    const [refrest, setRefresh] = useState<boolean>(false);
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
+    const [refresh, setRefresh] = useState<boolean>(false);
+
+    function get(): Promise<TodoModel[] | void> {
+        return TodoController.get().then(res => res).then(res => setDataSource(res.result));
+    }
+
+    const handleData = (data?: any) => {
+        let key = 0;
+        setDataSource(data.result.result.map((item: TodoModel) => ({ key: key++, id: item.id, description: item.description, state: item.state })))
+    }
 
     useEffect(() => {
-        // TodoController.get()
-        //     .then(res => setDataSource(res?.result?.map(e => ({ id: e.id, description: e.description, state: e.state }))));
+        TodoController.get()
+            .then((res: any) => {
+                if (res)
+                    handleData(res);
+            });
     }, [])
 
+
+
     useEffect(() => {
-        // TodoController.get()
-        //     .then(res => setDataSource(res?.result?.map(e => ({ id: e.id, description: e.description, state: e.state }))));
-    }, [isAdding, refrest])
+        TodoController.get()
+            .then((res: any) => {
+                if (res)
+                    handleData(res);
+            });
+    }, [isAdding, refresh, isDeleting])
 
 
-    const handleDelete = (id: React.Key) => {
-        //const newData = dataSource?.filter((item) => item.id !== id);
-        TodoController.delete(id.toString())
+    const handleDelete = (record: TodoModel) => {
+        TodoController.delete(record?.id ?? '')
             .then(res => {
-                setRefresh(true)
-                SweetAlertSuccess()
+                const newData = dataSource?.filter(item => item.id !== record.id);
+                setDataSource(newData);
+                setIsDeleting(true);
+                SweetAlertSuccess(`Tarea ${record.description} eliminada satisfactoriamente!`)
             })
             .catch(_ => SweetAlertError("Ha ocurrido un error"))
-            .finally(() => setRefresh(false));
+            .finally(() => setIsDeleting(false));
     };
 
     const handleSelectChange = (record: TodoModel, value: any) => {
-        console.log(`Nuevo valor seleccionado para ${record.description}: ${value}`);
         const obj: TodoModel = {
             id: record.id,
-            state: record.state
+            description: record.description,
+            state: options.find(item => item.value == value)?.label
         }
         TodoController.update(obj)
             .then(res => {
                 setRefresh(true)
-                SweetAlertSuccess()
+                SweetAlertSuccess(`Tarea ${obj.description} actualizada correctamente`)
             })
             .catch(_ => SweetAlertError("Ha ocurrido un error"))
             .finally(() => setRefresh(false));
@@ -106,9 +126,10 @@ export default function ListTodo() {
         },
         {
             dataIndex: 'operation',
-            render: (_, record) =>
+            render: (_, record: TodoModel) =>
                 (dataSource ?? []).length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+                    <Popconfirm title="¿Esta seguro que desea eliminar la tarea? "
+                        onConfirm={() => handleDelete(record)}>
                         <a>Eliminar</a>
                     </Popconfirm>
                 ) : null,

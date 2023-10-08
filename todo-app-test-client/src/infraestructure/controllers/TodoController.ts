@@ -8,8 +8,8 @@ export class TodoController {
         return await repository.get();
     }
 
-    static async getById(id: string) {
-        return await repository.getById(id);
+    static getById(id: string) {
+        return repository.getById(id).then(res => res);
     }
 
     static async create(data: TodoModel) {

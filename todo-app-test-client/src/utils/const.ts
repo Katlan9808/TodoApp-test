@@ -17,3 +17,5 @@ export const data = [
         state: 'Completada',
     },
 ];
+
+export const API_URL = 'http://localhost:5052/';

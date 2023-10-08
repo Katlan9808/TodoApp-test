@@ -23,8 +23,9 @@ export default function AddTodo({ isAdding, setisAdding }: ICardActions) {
     }
 
     const handleSubmit = (e: any) => {
-        debugger
         e.preventDefault();
+
+        setisAdding(true)
 
         const values = formRef?.current?.getFieldsValue();
         console.log('Valores del formulario:', values);
@@ -37,7 +38,7 @@ export default function AddTodo({ isAdding, setisAdding }: ICardActions) {
         TodoController.create(obj)
             .then(res => {
                 setisAdding(true)
-                SweetAlertSuccess()
+                SweetAlertSuccess(`Tarea ${obj.description} creada satisfactoriamente!`)
             })
             .catch(_ => SweetAlertError("Ha ocurrido un error"))
             .finally(() => setisAdding(false));
